@@ -5,6 +5,12 @@ class Rows extends React.Component {
     state = {
         stateColors: this.props.colors
     }
+
+    changeBackground = (row, col) => {
+        const arr = this.state.stateColors;
+        arr[row][col] = "white";
+        this.setState({stateColors: arr});
+    }
     
     handleClick = (e) => {
         const col = e.target.dataset.colindex;
@@ -17,21 +23,26 @@ class Rows extends React.Component {
         //check adjacent cols
         if (col-1 >= 0 && this.state.stateColors[row][col-1] === currentColor) {
             console.log('column to the left');
-            e.target.backgroundColor = "white";
+            this.changeBackground(row,col-1);
         }
 
         if (maxColLength > parseInt(col)+1 && this.state.stateColors[row][parseInt(col)+1] === currentColor) {
             console.log('column to the right');
+            this.changeBackground(row,parseInt(col)+1);
         }
 
         // // check adjacent rows
         if (row-1 >= 0 && this.state.stateColors[row-1][col] === currentColor) {
             console.log('row on top');
+            this.changeBackground(row-1,col);
         }
 
         if (maxRowLength > parseInt(row)+1 && this.state.stateColors[parseInt(row)+1][col] === currentColor) {
             console.log('row on bottom');
+            this.changeBackground(parseInt(row)+1,col);
         }
+
+        this.changeBackground(row,col);
     }
 
     render() {
