@@ -1,5 +1,6 @@
 import { Container, Row } from 'reactstrap';
 import Block from './block';
+import Rows from './rows';
 
 const createBox = (color: string) => (
   <div style={{
@@ -26,11 +27,23 @@ function SameGame() {
       ['green', 'red', 'green', 'red', 'green']
   ]
 
+  const colorArrayByRows = [
+    ['green', 'green','blue', 'red','green'],
+    ['red', 'blue','red','blue','red'],
+    ['blue','green','red','blue','green'],
+    ['blue','green','red','blue','red'],
+    ['green','green','blue','blue','green']
+  ]
+
   return (
     <Container>
       { /* This is just a sample row, feel free to run with this visual system, or leverage your own */ }
 
       <Block colors={colorArray} />
+
+      <div style={{clear: "both", height: "50px"}}></div>
+
+      <Rows colors={colorArrayByRows} />
 
     </Container>
   );

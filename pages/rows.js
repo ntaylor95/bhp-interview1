@@ -1,7 +1,7 @@
 import React from  'react';
 import css from './block.module.css';
 
-class Block extends React.Component {
+class Rows extends React.Component {
     state = {
         stateColors: this.props.colors
     }
@@ -11,10 +11,6 @@ class Block extends React.Component {
         const row = e.target.dataset.rowindex;
 
         const currentColor = this.state.stateColors[row][col];
-        console.log(currentColor);
-        console.log(`click row ${row} column ${col}`);
-
-        console.log(this.state.stateColors);
         const maxRowLength = this.state.stateColors.length;
         const maxColLength = this.state.stateColors[0].length;
 
@@ -24,9 +20,7 @@ class Block extends React.Component {
             e.target.backgroundColor = "white";
         }
 
-        console.log(`max col length is ${this.state.stateColors[4][1]}`);
-
-        if (maxColLength > col+1 && this.state.stateColors[row][col+1] === currentColor) {
+        if (maxColLength > parseInt(col)+1 && this.state.stateColors[row][parseInt(col)+1] === currentColor) {
             console.log('column to the right');
         }
 
@@ -35,7 +29,7 @@ class Block extends React.Component {
             console.log('row on top');
         }
 
-        if (maxRowLength > row+1 && this.state.stateColors[row+1][col] === currentColor) {
+        if (maxRowLength > parseInt(row)+1 && this.state.stateColors[parseInt(row)+1][col] === currentColor) {
             console.log('row on bottom');
         }
     }
@@ -51,17 +45,19 @@ class Block extends React.Component {
             </div>)
         }
 
-        const block = this.props.colors.map((col, i) => {
+        const block = this.props.colors.map((row, i) => {
             return (
-                <div key={i} className={css.columnContainer}>
-                    {
-                        col.map((color, j) => {
-                        return (
-                            <div  key={j+10} onClick={this.handleClick}>{createBox(color, j, i)}</div>
-                        )
-                    })
-                }
-
+                <div key={i+30}>
+                    <div key={i}>
+                        {
+                            row.map((color, j) => {
+                                return (
+                                    <div className={css.columnContainer} key={j+10} onClick={this.handleClick}>{createBox(color, i, j)}</div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className={css.rowClear}></div>
                 </div>
             )
         })
@@ -74,4 +70,4 @@ class Block extends React.Component {
 
 }
 
-export default Block;
+export default Rows;

@@ -1,3 +1,7 @@
 .columnContainer {
     float:left;
 }
+
+.rowClear {
+    clear:both;
+}
