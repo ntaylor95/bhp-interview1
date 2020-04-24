@@ -43,6 +43,46 @@ class Rows extends React.Component {
         }
 
         this.changeBackground(row,col);
+
+        var colArray = [];
+        // transpose the array
+        for (var j=0; j<this.state.stateColors[0].length; j++) {
+            colArray.push([]);
+            colArray[j].push(this.state.stateColors[0][j], this.state.stateColors[1][j], this.state.stateColors[2][j],
+                this.state.stateColors[3][j], this.state.stateColors[4][j])
+
+            if (colArray[j].includes('white')) {
+                for (var i=colArray[j].length-1; i>=0; i--) {
+                    console.log(colArray[j][i]);
+                    if (colArray[j][i] === "white") {
+                        colArray[j].splice(i, 1);
+                    }
+                }
+            }
+
+            if (colArray[j].length < 5) {
+                do  {
+                    colArray[j].unshift('white');
+                } while (colArray[j].length < 5)
+            }
+        }
+
+        console.log(colArray);
+
+        var rowArray = [];
+        for (var i=0; i<this.state.stateColors.length; i++) {
+            rowArray.push([]);
+            rowArray[i].push(colArray[0][i], colArray[1][i], colArray[2][i],
+                colArray[3][i], colArray[4][i]);
+        }
+
+        console.log(rowArray);
+
+        console.log('not');
+
+        this.setState({stateColors: rowArray});
+
+        console.log('Why');
     }
 
     render() {
@@ -56,7 +96,7 @@ class Rows extends React.Component {
             </div>)
         }
 
-        const block = this.props.colors.map((row, i) => {
+        const block = this.state.stateColors.map((row, i) => {
             return (
                 <div key={i+30}>
                     <div key={i}>
